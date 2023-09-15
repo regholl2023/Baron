@@ -258,6 +258,7 @@ def decision(ticker, days_out=30):
 
 
 if __name__ == "__main__":
+    print("--- Hello there! I'm Baron, your personal stock option trading and investing assistant. Let's make you SOME MONEY!! ---\n")
     ticker = input("Enter a stock ticker: ").upper()
     days_out = int(input("Enter the number of days out for the option's expiration: "))
 
@@ -277,4 +278,4 @@ if __name__ == "__main__":
 
     # Disclaimer
     print("\n--- Disclaimer: Potential for Losses in Options Investing ---\n")
-    print("Options investing carries the potential for significant financial losses. Due to factors like market volatility, leverage, time decay, and incomplete information, options trading can result in substantial losses. It's important to note that the information provided here is not financial advice. Investors should seek guidance from a qualified financial advisor and exercise caution when considering options trading to manage these risks effectively.")
+    print("Options investing carries the potential for significant financial losses. Due to factors like market volatility, leverage, time decay, and incomplete information, options trading can result in substantial losses. It's important to note that the information provided here is not financial advice. Investors should seek guidance from a qualified financial advisor and exercise caution when considering options trading to manage these risks effectively. By using this tool, you agree to hold Baron, its creator Pavon Dunbar, and any affiliates and representatives harmless form any financial losses that may result from errors and misuse.")
