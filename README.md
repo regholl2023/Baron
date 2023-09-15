@@ -11,13 +11,21 @@ Baron begins by importing necessary libraries, including yFinance for fetching s
 Several functions are defined to perform various tasks:
 
 **fetch_data(ticker)** fetches historical stock data for the specified ticker.
+
 **get_stock_data(ticker, period)** downloads stock data for a given period and adds technical indicators using TA-Lib.
+
 **technical_analysis(stock_data)** analyzes technical indicators such as RSI, MACD, Bollinger Bands, Stochastic Oscillator, moving averages, ATR, and relative strength.
+
 **volume_analysis(stock_data)** assesses trading volume.
+
 **historical_volatility(stock_data)** calculates historical volatility.
+
 **fundamental_analysis(ticker)** examines fundamental metrics like dividend yield and forward P/E ratio.
+
 **basic_analysis(stock_data, ticker)** combines technical, volume, and fundamental analysis to provide a basic trading recommendation.
+
 **volatility_analysis(data)** assesses volatility based on standard deviation.
+
 **The decision(ticker, days_out)** function combines various analyses to make a trading decision. It calculates a total score based on the analyses and recommends buying or selling call or put options with strike prices. It also generates a price chart for visualization.
 
 In the main part of Baron's code:
