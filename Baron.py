@@ -2,12 +2,10 @@
 # A Heuristic-based Rule System model that predicts CALL or PUT options based on pre-trained data
 # Created by Pavon Dunbar
 
-import matplotlib.pyplot as plt
 import yfinance as yf
 import numpy as np
 import datetime
 import warnings  # Comment Out To Show Warnings Globally
-import mplcursors
 warnings.filterwarnings("ignore")  # Comment Out To Show Warnings Globally
 from ta import add_all_ta_features
 from ta.momentum import RSIIndicator
@@ -15,19 +13,16 @@ from ta.volatility import BollingerBands
 from ta.momentum import StochasticOscillator
 from ta.volatility import AverageTrueRange
 
-
 def fetch_data(ticker):
     stock = yf.Ticker(ticker)
     stock_data = stock.history(period="1y")
     return stock_data
-
 
 def get_stock_data(ticker, period='1y'):
     stock_data = yf.download(ticker, period=period)
     stock_data = add_all_ta_features(stock_data, open="Open", high="High", low="Low", close="Close", volume="Volume",
                                      fillna=True)
     return stock_data
-
 
 def technical_analysis(stock_data):
     reasons = []
@@ -100,7 +95,6 @@ def technical_analysis(stock_data):
 
     return reasons
 
-
 def volume_analysis(stock_data):
     reasons = []
 
@@ -114,12 +108,10 @@ def volume_analysis(stock_data):
 
     return reasons
 
-
 def historical_volatility(stock_data):
     log_returns = np.log(stock_data['Close'] / stock_data['Close'].shift(1))
     volatility = log_returns.std() * np.sqrt(252)  # Annualizing daily volatility
     return volatility
-
 
 def fundamental_analysis(ticker):
     reasons = []
@@ -132,7 +124,6 @@ def fundamental_analysis(ticker):
         reasons.append(f"The stock has a forward P/E ratio of {fundamentals['forwardPE']}, indicating it might be undervalued.")
 
     return reasons
-
 
 def basic_analysis(stock_data, ticker):
     reasons = []
@@ -166,7 +157,6 @@ def basic_analysis(stock_data, ticker):
     else:
         return "downtrend", ["Recent trends do not support a strong bullish signal."]
 
-
 def volatility_analysis(data):
     reasons = []
 
@@ -178,7 +168,6 @@ def volatility_analysis(data):
         reasons.append(f"The stock has high historical volatility of {volatility:.2f}, indicating potential risks.")
 
     return reasons
-
 
 def decision(ticker, days_out=30):
     stock_data = fetch_data(ticker)
@@ -224,28 +213,7 @@ def decision(ticker, days_out=30):
     else:
         action = "BUY a PUT option"
         strike_price_otm = current_price + price_adjustment
-        strike_price_itm = current_price - price_adjustment
-
-    # Plot the stock's closing prices
-    plt.figure(figsize=(12, 6))
-    line, = plt.plot(stock_data.index, stock_data['Close'], label='Closing Price', color='blue')
-
-    plt.title(f'{ticker} Stock Price Chart')
-    plt.xlabel('Date')
-    plt.ylabel('Price')
-    plt.legend()
-
-    # Add cursor tooltips to display the closing price and option Greeks
-    cursor = mplcursors.cursor(hover=True)
-    cursor.connect("add", lambda sel: sel.annotation.set_text(
-        f"Date: {stock_data.index[int(sel.target.index)].strftime('%Y-%m-%d')}\n"
-        f"Closing Price: ${line.get_ydata()[int(sel.target.index)]:.2f}\n"
-    ))    
-
-    # Save the chart to a file or display it
-    chart_filename = f'{ticker}_chart.png'
-    plt.savefig(chart_filename)
-    plt.show()
+        strike_price_itm = current_price - price_adjustment    
 
     return {
         "decision": action,
@@ -253,9 +221,7 @@ def decision(ticker, days_out=30):
         "strike_price_itm": strike_price_itm,
         "expiration_date": (datetime.datetime.now() + datetime.timedelta(days=days_out)).strftime('%Y-%m-%d'),
         "reasons": reasons,
-        "chart_filename": chart_filename  # Include the chart filename in the result
     }
-
 
 if __name__ == "__main__":
     print("--- Hello there! I'm Baron, your personal stock option trading and investing assistant. Let's make you SOME MONEY!! ---\n")
@@ -271,10 +237,6 @@ if __name__ == "__main__":
     print("\nReasons:")
     for reason in result['reasons']:
         print(f"- {reason}")
-
-    # Display the chart filename
-    print("\nChart:")
-    print(result['chart_filename'])
 
     # Disclaimer
     print("\n--- Disclaimer: Potential for Losses in Options Investing ---\n")
