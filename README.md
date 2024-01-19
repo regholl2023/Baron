@@ -2,7 +2,7 @@
 
 Baron is a Python program for stock option trading decisions based on technical, fundamental, and volatility analysis. It is designed to assist traders in making decisions about buying or selling call and put options for a given stock. 
 
-Baron uses various technical indicators, fundamental metrics, and historical volatility to generate trading recommendations. It also generates a price chart for visual analysis and displays reasons for the trading decision.
+Baron uses various technical indicators, fundamental metrics, and historical volatility to generate trading recommendations. It also displays reasons for the trading decision.
 
 # Synopsis 
 
@@ -35,7 +35,7 @@ In the main part of Baron's code:
 3. The trading decision, strike prices, expiration date, reasons, and a chart of the stock's closing prices are displayed.
 4. A disclaimer is provided, warning users of the potential risks and losses associated with options trading.
 
-In conclusion, Baron is a comprehensive tool for traders to make informed decisions about options trading based on a combination of technical, fundamental, and volatility analyses. It provides transparency by explaining the reasoning behind each recommendation and includes a visual representation of stock price trends. Users are also reminded of the risks involved in options trading.
+In conclusion, Baron is a comprehensive tool for traders to make informed decisions about options trading based on a combination of technical, fundamental, and volatility analyses. It provides transparency by explaining the reasoning behind each recommendation. Users are also reminded of the risks involved in options trading.
 
 # Requirements
 
@@ -118,7 +118,7 @@ Baron will initialize and ask you to submit a stock ticker symbol for a company 
 
 After you submit the stock ticker symbol and number days out for the expiration, Baron will do a quick iteration over the dataset to make a determination.
 
-Once Baron is complete with its iteration, it will output a decision for you to either BUY or SELL a CALL or PUT OPTION, the strike prices ITM (in the money) and OTM (out the money), the reasons for its decision, and a visual chart showing the stock's performance over the past year. You can also click on any part of the blue line to get the closing price and date of the stock at that time.
+Once Baron is complete with its iteration, it will output a decision for you to either BUY or SELL a CALL or PUT OPTION, the strike prices ITM (in the money) and OTM (out the money), and the reasons for its decision.
 
 # Closing Notes
 
