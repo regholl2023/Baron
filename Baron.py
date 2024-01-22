@@ -12,6 +12,11 @@ from ta.momentum import RSIIndicator
 from ta.volatility import BollingerBands
 from ta.momentum import StochasticOscillator
 from ta.volatility import AverageTrueRange
+from ta.volume import OnBalanceVolumeIndicator
+from ta.trend import PSARIndicator
+from ta.trend import IchimokuIndicator
+from ta.momentum import WilliamsRIndicator
+from ta.volume import ChaikinMoneyFlowIndicator
 
 def fetch_data(ticker):
     stock = yf.Ticker(ticker)
@@ -92,6 +97,33 @@ def technical_analysis(stock_data):
     # Price Patterns Analysis (Example: Head and Shoulders)
     if stock_data['Close'][-3] > stock_data['Close'][-2] < stock_data['Close'][-1]:
         reasons.append("Possible head and shoulders pattern detected, which may indicate a trend reversal.")
+
+    # On-Balance Volume Analysis
+    obv = OnBalanceVolumeIndicator(stock_data['Close'], stock_data['Volume']).on_balance_volume()
+    if obv[-1] > obv.mean():
+        reasons.append("On-Balance Volume is above its average, indicating bullish sentiment.")
+
+    # Parabolic SAR Analysis
+    psar = PSARIndicator(stock_data['High'], stock_data['Low'], stock_data['Close']).psar()
+    if stock_data['Close'][-1] > psar[-1]:
+        reasons.append("Price is above the Parabolic SAR, indicating a potential uptrend.")
+
+    # Ichimoku Analysis
+    ichimoku = IchimokuIndicator(stock_data['High'], stock_data['Low'])
+    if stock_data['Close'][-1] > ichimoku.ichimoku_a()[-1] and stock_data['Close'][-1] > ichimoku.ichimoku_b()[-1]:
+        reasons.append("Price is above the Ichimoku cloud, indicating bullish momentum.")
+
+    # Williams %R Analysis
+    williams_r = WilliamsRIndicator(stock_data['High'], stock_data['Low'], stock_data['Close']).williams_r()
+    if williams_r[-1] < -80:
+        reasons.append("Williams %R indicates oversold conditions.")
+    elif williams_r[-1] > -20:
+        reasons.append("Williams %R indicates overbought conditions.")
+
+    # Chaikin Money Flow Analysis
+    cmf = ChaikinMoneyFlowIndicator(stock_data['High'], stock_data['Low'], stock_data['Close'], stock_data['Volume']).chaikin_money_flow()
+    if cmf[-1] > 0:
+        reasons.append("Chaikin Money Flow is positive, indicating buying pressure.")
 
     return reasons
 
@@ -240,4 +272,4 @@ if __name__ == "__main__":
 
     # Disclaimer
     print("\n--- Disclaimer: Potential for Losses in Options Investing ---\n")
-    print("Options investing carries the potential for significant financial losses. Due to factors like market volatility, leverage, time decay, and incomplete information, options trading can result in substantial losses. It's important to note that the information provided here is not financial advice. Investors should seek guidance from a qualified financial advisor and exercise caution when considering options trading to manage these risks effectively. By using this tool, you agree to hold Baron, its creator Pavon Dunbar, and any affiliates and representatives harmless form any financial losses that may result from errors and misuse.")
+    print("Options investing carries the potential for significant financial losses. Due to factors like market volatility, leverage, time decay, and incomplete information, options trading can result in substantial losses. It's important to note that the information provided here is not financial advice. Investors should seek guidance from a qualified financial advisor and exercise caution when considering options trading to manage these risks effectively. By using this tool, you agree to hold Baron, its creator Pavon Dunbar, and any affiliates and representatives harmless form any financial losses that may result from errors and misuse.") 
