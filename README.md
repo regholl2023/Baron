@@ -1,5 +1,7 @@
 # Baron
 
+<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*vWnjxyUO7QtzlOvw2vRYAw.png"></img>
+
 Baron is a Python program for stock option trading decisions based on technical, fundamental, and volatility analysis. It is designed to assist traders in making decisions about buying or selling call and put options for a given stock. 
 
 Baron uses various technical indicators, fundamental metrics, and historical volatility to generate trading recommendations. It also displays reasons for the trading decision.
